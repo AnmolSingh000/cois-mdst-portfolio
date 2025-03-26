@@ -11,6 +11,10 @@ const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
 const navLinks = document.querySelector(".nav-links");
 const themeToggle = document.querySelector(".theme-toggle");
 const themeIcon = document.getElementById("theme-icon");
+const colorBlindToggle = document.getElementById("colorBlindToggle");
+const colorBlindIcon = document.getElementById("color-blind-icon");
+const contrastToggle = document.getElementById("contrastToggle");
+const contrastIcon = document.getElementById("contrast-icon");
 const cookieBanner = document.getElementById("cookieBanner");
 const acceptCookiesBtn = document.getElementById("acceptCookies");
 const privacyModal = document.getElementById("privacyModal");
@@ -21,7 +25,6 @@ const contactForm = document.getElementById("contactForm");
 const scrollLinks = document.querySelectorAll(".scroll-link");
 
 // ---------------------- Course Details Slider Logic ----------------------
-// Course Details Slider
 document.addEventListener("DOMContentLoaded", () => {
   const courseSlider = document.getElementById("courseSlider");
   const prevBtn = document.getElementById("prevBtn");
@@ -32,7 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function updateSlidePosition() {
     // The container width is 400%, so each slide is 25%.
-    // currentSlide * 25 => the percentage offset for the transform
     const offsetPercentage = currentSlide * 25;
     courseSlider.style.transform = `translateX(-${offsetPercentage}%)`;
   }
@@ -64,7 +66,7 @@ document.body.addEventListener("pointermove", (e) => {
   document.documentElement.style.setProperty("--py", y + "px");
 });
 
-// Quiz Data
+// ---------------------- QUIZ Data & Logic ----------------------
 const quizData = [
   {
     question: "Which software is commonly used for video editing?",
@@ -96,12 +98,10 @@ const quizData = [
 let currentQuestion = 0;
 let score = 0;
 
-// Initialize Quiz
 function initializeQuiz() {
   showQuestion();
 }
 
-// Show Question
 function showQuestion() {
   const question = quizData[currentQuestion];
   const quizContent = document.getElementById("quiz-content");
@@ -131,7 +131,6 @@ function showQuestion() {
     currentQuestion === quizData.length - 1 ? "block" : "none";
 }
 
-// Select Option
 window.selectOption = function (selected) {
   const options = document.querySelectorAll(".quiz-option");
   const correct = quizData[currentQuestion].correct;
@@ -149,10 +148,10 @@ window.selectOption = function (selected) {
     options[correct].classList.add("correct");
   }
 
+  // Disable further clicks
   options.forEach((option) => (option.style.pointerEvents = "none"));
 };
 
-// Navigation
 document.getElementById("prev-btn")?.addEventListener("click", () => {
   if (currentQuestion > 0) {
     currentQuestion--;
@@ -185,7 +184,6 @@ document.getElementById("submit-btn")?.addEventListener("click", () => {
   result.style.display = "block";
 });
 
-// Reset Quiz
 window.resetQuiz = function () {
   currentQuestion = 0;
   score = 0;
@@ -199,12 +197,12 @@ window.resetQuiz = function () {
   showQuestion();
 };
 
-// Mobile Menu Toggle
+// ---------------------- Mobile Menu Toggle ----------------------
 mobileMenuBtn?.addEventListener("click", () => {
   navLinks.classList.toggle("active");
 });
 
-// Theme Toggle with Icon Animation
+// ---------------------- Dark Mode Toggle ----------------------
 function updateThemeIcon() {
   if (body.classList.contains("dark-mode")) {
     // In dark mode, show sun icon
@@ -214,14 +212,14 @@ function updateThemeIcon() {
     themeIcon.classList.remove("fa-sun");
     themeIcon.classList.add("fa-moon");
   }
-  // Add a smooth rotate animation
+  // Add rotate animation
   themeIcon.classList.add("rotate");
   setTimeout(() => {
     themeIcon.classList.remove("rotate");
   }, 300);
 }
 
-// Set initial icon based on saved preference
+// Check localStorage for dark mode preference
 const isDarkMode = localStorage.getItem("darkMode") === "true";
 if (isDarkMode) {
   body.classList.add("dark-mode");
@@ -234,7 +232,53 @@ themeToggle?.addEventListener("click", () => {
   updateThemeIcon();
 });
 
-// Cookie Banner
+// ---------------------- Color-Blind Mode Toggle ----------------------
+function updateColorBlindIcon() {
+  // Add a rotate animation
+  colorBlindIcon.classList.add("rotate");
+  setTimeout(() => {
+    colorBlindIcon.classList.remove("rotate");
+  }, 300);
+}
+
+// Check localStorage for color-blind mode
+const isColorBlindMode = localStorage.getItem("colorBlindMode") === "true";
+if (isColorBlindMode) {
+  body.classList.add("color-blind-mode");
+}
+colorBlindToggle?.addEventListener("click", () => {
+  body.classList.toggle("color-blind-mode");
+  localStorage.setItem(
+    "colorBlindMode",
+    body.classList.contains("color-blind-mode")
+  );
+  updateColorBlindIcon();
+});
+
+// ---------------------- High Contrast Mode Toggle ----------------------
+function updateContrastIcon() {
+  // Add a rotate animation
+  contrastIcon.classList.add("rotate");
+  setTimeout(() => {
+    contrastIcon.classList.remove("rotate");
+  }, 300);
+}
+
+// Check localStorage for high-contrast mode
+const isHighContrastMode = localStorage.getItem("highContrastMode") === "true";
+if (isHighContrastMode) {
+  body.classList.add("high-contrast-mode");
+}
+contrastToggle?.addEventListener("click", () => {
+  body.classList.toggle("high-contrast-mode");
+  localStorage.setItem(
+    "highContrastMode",
+    body.classList.contains("high-contrast-mode")
+  );
+  updateContrastIcon();
+});
+
+// ---------------------- Cookie Banner ----------------------
 const cookiesAccepted = localStorage.getItem("cookiesAccepted") === "true";
 if (cookiesAccepted && cookieBanner) {
   cookieBanner.style.display = "none";
@@ -245,7 +289,7 @@ acceptCookiesBtn?.addEventListener("click", () => {
   cookieBanner.style.display = "none";
 });
 
-// Privacy Modal
+// ---------------------- Privacy Modal ----------------------
 openPrivacyModal?.addEventListener("click", (e) => {
   e.preventDefault();
   privacyModal.style.display = "block";
@@ -261,30 +305,27 @@ window.addEventListener("click", (e) => {
   }
 });
 
-// Terms of Use Modal Elements
+// ---------------------- Terms of Use Modal ----------------------
 const termsModal = document.getElementById("termsModal");
 const openTermsModal = document.getElementById("openTermsModal");
 const closeTermsModal = document.getElementById("closeTermsModal");
 
-// Open Terms Modal
 openTermsModal?.addEventListener("click", (e) => {
   e.preventDefault();
   termsModal.style.display = "block";
 });
 
-// Close Terms Modal
 closeTermsModal?.addEventListener("click", () => {
   termsModal.style.display = "none";
 });
 
-// Close Terms Modal if user clicks outside
 window.addEventListener("click", (e) => {
   if (e.target === termsModal) {
     termsModal.style.display = "none";
   }
 });
 
-// Scroll to Top
+// ---------------------- Scroll to Top ----------------------
 window.addEventListener("scroll", () => {
   if (window.pageYOffset > 300) {
     scrollTopBtn.classList.add("visible");
@@ -300,14 +341,14 @@ scrollTopBtn?.addEventListener("click", () => {
   });
 });
 
-// Contact Form
+// ---------------------- Contact Form ----------------------
 contactForm?.addEventListener("submit", (e) => {
   e.preventDefault();
   alert("Message sent successfully!");
   contactForm.reset();
 });
 
-// Smooth Scroll for Nav Links
+// ---------------------- Smooth Scroll for Nav Links ----------------------
 scrollLinks.forEach((link) => {
   link.addEventListener("click", (e) => {
     e.preventDefault();
@@ -325,7 +366,7 @@ scrollLinks.forEach((link) => {
   });
 });
 
-// Initialize Quiz & Swiper on DOM Load
+// ---------------------- Initialize Quiz & Swiper on DOM Load ----------------------
 document.addEventListener("DOMContentLoaded", () => {
   initializeQuiz();
 
@@ -336,9 +377,9 @@ document.addEventListener("DOMContentLoaded", () => {
     centeredSlides: true,
     slidesPerView: "auto",
     coverflowEffect: {
-      rotate: 0, // No rotation
-      stretch: 0, // Distance between slides
-      depth: 250, // 3D depth
+      rotate: 0,
+      stretch: 0,
+      depth: 250,
       modifier: 1,
       slideShadows: false,
     },

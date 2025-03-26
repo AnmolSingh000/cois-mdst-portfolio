@@ -49,16 +49,35 @@
         </button>
         <ul class="nav-links">
           <li><a class="scroll-link" href="#home">Home</a></li>
-          <li>
-            <a class="scroll-link" href="#instructor">Instructor</a>
-          </li>
+          <li><a class="scroll-link" href="#instructor">Instructor</a></li>
           <li><a class="scroll-link" href="#course-details">Overview</a></li>
           <li><a class="scroll-link" href="#timeline">Timeline</a></li>
           <li><a class="scroll-link" href="#quiz">Quiz</a></li>
           <li><a class="scroll-link" href="#contact">Contact</a></li>
+
+          <!-- THEME TOGGLES -->
           <li>
+            <!-- Dark Mode Toggle -->
             <button class="theme-toggle" aria-label="Toggle dark mode">
               <i id="theme-icon" class="fas fa-moon"></i>
+            </button>
+
+            <!-- Color-Blind Mode Toggle -->
+            <button
+              class="color-blind-toggle"
+              id="colorBlindToggle"
+              aria-label="Toggle color-blind mode"
+            >
+              <i id="color-blind-icon" class="fas fa-low-vision"></i>
+            </button>
+
+            <!-- High Contrast Mode Toggle -->
+            <button
+              class="contrast-toggle"
+              id="contrastToggle"
+              aria-label="Toggle high contrast mode"
+            >
+              <i id="contrast-icon" class="fas fa-adjust"></i>
             </button>
           </li>
         </ul>
@@ -511,7 +530,7 @@
     <footer class="main-footer">
       <div class="footer-content">
         <div class="footer-info">
-          <h3>COIS-MDST-2830H-A</h3>
+          <h3>COIS-MDST-2830H</h3>
           <p>Multimedia And Design</p>
         </div>
         <div class="footer-links">
