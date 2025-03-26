@@ -448,9 +448,6 @@ html, body {
       max-width: 800px;
       margin: 3rem auto;
   }
-  .quiz-heading {
-      /* Additional styles if needed */
-  }
   .quiz-question {
       font-size: 1.25rem;
       font-weight: 600;
