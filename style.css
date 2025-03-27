@@ -62,6 +62,9 @@ body.dark-mode {
   --background-alt: #1e293b;
   --border-color: #334155;
 }
+body.dark-mode .main-header a:hover {
+  color: var(--primary-light);
+}
 
 /* Color-Blind Mode (Using Okabe & Ito palette) */
 body.color-blind-mode {
@@ -104,7 +107,8 @@ body.high-contrast-mode .quiz-btn:hover {
   background-color: var(--accent-color);
 }
 
-body.high-contrast-mode .footer-links a:hover {
+body.high-contrast-mode .footer-links a:hover,
+body.high-contrast-mode .main-header a:hover {
   color: var(--accent-color);
 }
 
