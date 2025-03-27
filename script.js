@@ -342,8 +342,45 @@ scrollTopBtn?.addEventListener("click", () => {
 });
 
 // ---------------------- Contact Form ----------------------
+/**
+ * Basic Input Sanitization & Front-End Validation
+ * 1. Strips out HTML tags to prevent simple script injection.
+ * 2. Ensures no empty fields.
+ * 3. Checks basic email format.
+ */
+function sanitizeInput(value) {
+  return value.replace(/<[^>]*>/g, "").trim();
+}
+
 contactForm?.addEventListener("submit", (e) => {
   e.preventDefault();
+
+  // Grab fields
+  const nameField = document.getElementById("name");
+  const emailField = document.getElementById("email");
+  const subjectField = document.getElementById("subject");
+  const messageField = document.getElementById("message");
+
+  // Sanitize inputs
+  const nameValue = sanitizeInput(nameField.value);
+  const emailValue = sanitizeInput(emailField.value);
+  const subjectValue = sanitizeInput(subjectField.value);
+  const messageValue = sanitizeInput(messageField.value);
+
+  // Check for empty fields
+  if (!nameValue || !emailValue || !subjectValue || !messageValue) {
+    alert("Please fill in all required fields.");
+    return;
+  }
+
+  // Simple email format check
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailPattern.test(emailValue)) {
+    alert("Please enter a valid email address.");
+    return;
+  }
+
+  // If everything is valid, pretend to send
   alert("Message sent successfully!");
   contactForm.reset();
 });
@@ -409,4 +446,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Trigger initial state
   swiper.emit("slideChangeTransitionStart");
+});
+
+// ---------------------- Navbar Overlay on Hero Scroll ----------------------
+const heroSection = document.getElementById("home");
+const navBar = document.querySelector(".main-header");
+
+window.addEventListener("scroll", () => {
+  const heroRect = heroSection.getBoundingClientRect();
+  // If the hero is still on screen (bottom > 0), apply "hero-overlay"
+  if (heroRect.bottom > 0) {
+    navBar.classList.add("hero-overlay");
+  } else {
+    navBar.classList.remove("hero-overlay");
+  }
 });

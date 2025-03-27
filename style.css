@@ -1,3 +1,6 @@
+/* =====================================================
+   1. Global Reset & Base Variables
+===================================================== */
 /* Prevent horizontal scrolling on mobile */
 html,
 body {
@@ -6,37 +9,51 @@ body {
 
 /* CSS Reset & Variables */
 :root {
-  /* Colors & Variables */
+  /* Base color definitions */
   --primary-color: #6366f1;
   --primary-dark: #4f46e5;
   --primary-light: #818cf8;
   --secondary-color: #1e293b;
   --accent-color: #8b5cf6;
+
+  /* Navigation text colors for light/dark modes */
   --nav-text-light: #ffffff; /* For dark mode nav text */
   --nav-text-dark: #1e293b; /* For light mode nav text */
+  --nav-text-color: var(--nav-text-dark); /* Default nav text color */
+
+  /* Text colors */
   --text-dark: #1e293b;
   --text-light: #64748b;
+
+  /* Background colors */
   --background-color: #ffffff;
   --background-alt: #f8fafc;
+
+  /* Border, success & error colors */
   --border-color: #e2e8f0;
   --success-color: #22c55e;
   --error-color: #ef4444;
+
   /* Hero gradient in light mode */
   --gradient-primary: linear-gradient(180deg, #c3c3f2, #b089e6, #00affa);
   --gradient-secondary: linear-gradient(135deg, #3b82f6, #6366f1);
+
+  /* Shadows & transition */
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
   --shadow-md: 0 4px 6px 3px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 10px 15px 8px rgba(0, 0, 0, 0.1);
   --transition: all 0.3s ease;
+
+  /* Timeline shadows */
   --timeline-shadow-light: 0 8px 20px rgba(0, 0, 0, 0.1);
   --timeline-shadow-dark: 0 0 10px #6366f1;
-  /* Default nav text color for light mode */
-  --nav-text-color: var(--nav-text-dark);
 }
 
+/* =====================================================
+   2. Mode-Specific Variables
+===================================================== */
 /* Dark Mode Variables */
 body.dark-mode {
-  /* Dark mode hero gradient */
   --gradient-primary: linear-gradient(135deg, #27273e, #032a73, #004f4b);
   --nav-text-color: var(--nav-text-light);
   --text-dark: #f8fafc;
@@ -46,18 +63,19 @@ body.dark-mode {
   --border-color: #334155;
 }
 
-/* Color-Blind Mode (Example: Okabe & Ito palette) */
+/* Color-Blind Mode (Using Okabe & Ito palette) */
 body.color-blind-mode {
-  /* Use a color-blind–safe blue as the primary and an orange as the accent */
-  --primary-color: #0072b2; /* Blue */
-  --accent-color: #e69f00;  /* Orange */
+  /* Override primary & accent for color-blind safety */
+  --primary-color: #0072b2; /* Safe blue */
+  --accent-color: #e69f00; /* Safe orange */
 }
 
+/* Specific footer heading override in color-blind mode */
 body.color-blind-mode .footer-info h3 {
-  color:  #e69f00;
+  color: #e69f00;
 }
 
-/* High Contrast Mode */
+/* High Contrast Mode Variables */
 body.high-contrast-mode {
   --background-color: #000000;
   --background-alt: #1a1a1a;
@@ -66,16 +84,31 @@ body.high-contrast-mode {
   --border-color: #ffffff;
   --primary-color: #ffff00; /* Yellow for strong contrast */
   --primary-dark: #ffff00;
-  --accent-color: #ff00ff;  /* Magenta for highlight */
+  --accent-color: #ff00ff; /* Magenta for highlight */
   --gradient-primary: linear-gradient(180deg, #000, #333);
 }
 
+/* High Contrast Mode Additional Styles */
 body.high-contrast-mode .footer-content,
 body.high-contrast-mode .nav-links a,
 body.high-contrast-mode button {
   color: white;
 }
 
+/* High Contrast Mode Hover for interactive elements */
+body.high-contrast-mode .cta-button:hover,
+body.high-contrast-mode .slider-btn:hover,
+body.high-contrast-mode .scroll-top:hover,
+body.high-contrast-mode .submit-button:hover,
+body.high-contrast-mode .quiz-btn:hover {
+  background-color: var(--accent-color);
+}
+
+body.high-contrast-mode .footer-links a:hover {
+  color: var(--accent-color);
+}
+
+/* High Contrast Mode default for interactive elements */
 body.high-contrast-mode .cta-button,
 body.high-contrast-mode .quiz-btn,
 body.high-contrast-mode .slider-btn,
@@ -86,39 +119,46 @@ body.high-contrast-mode .scroll-top {
   background-color: var(--primary-color); /* Yellow background */
 }
 
-/* ---------- Color-Blind Mode Overrides ---------- */
+/* ---------- Color-Blind Mode Overrides ----------
+   Apply safe accent colors to interactive elements
+------------------------------------------------------ */
 body.color-blind-mode .cta-button,
 body.color-blind-mode .quiz-btn,
 body.color-blind-mode .slider-btn,
 body.color-blind-mode .submit-button,
 body.color-blind-mode .cookie-btn,
 body.color-blind-mode .scroll-top {
-  /* Use the accent (orange) for interactive elements */
   background: var(--accent-color) !important;
   color: #000000 !important; /* Black text for optimal contrast */
 }
 
-body.color-blind-mode .nav-links a:hover {
+/* Hover state for nav and footer links in color-blind mode */
+body.color-blind-mode .nav-links a:hover,
+body.color-blind-mode .footer-links a:hover {
   color: var(--accent-color);
 }
 
+/* Timeline date color in color-blind mode */
 body.color-blind-mode .timeline-date {
   color: var(--accent-color);
 }
 
-/* ---------- Color-Blind Mode Hover Overrides ---------- */
+/* ---------- Color-Blind Mode Hover Overrides ----------
+   Darker accent on hover for interactive elements
+--------------------------------------------------------- */
 body.color-blind-mode .cta-button:hover,
 body.color-blind-mode .quiz-btn:hover,
 body.color-blind-mode .slider-btn:hover,
 body.color-blind-mode .submit-button:hover,
 body.color-blind-mode .cookie-btn:hover,
 body.color-blind-mode .scroll-top:hover {
-  /* A darker shade of the accent for hover feedback */
-  background: #d78e00 !important;
+  background: #d78e00 !important; /* Darker orange */
   color: #000000 !important;
 }
 
-/* Global Styles */
+/* =====================================================
+   3. Global Styles & Layout
+===================================================== */
 * {
   margin: 0;
   padding: 0;
@@ -170,7 +210,9 @@ section {
   text-decoration: none;
 }
 
-/* Header & Navigation */
+/* =====================================================
+   4. Header & Navigation
+===================================================== */
 .main-header {
   position: fixed;
   top: 0;
@@ -211,9 +253,10 @@ section {
   transition: var(--transition);
 }
 .nav-links a:hover {
-  color: var(--primary-color);
+  color: var(--primary-dark);
 }
 
+/* Theme Toggle & Other Toggles */
 .theme-toggle {
   background: none;
   border: none;
@@ -222,8 +265,6 @@ section {
   font-size: 1.25rem;
   margin-right: 0.5rem;
 }
-
-/* Color-Blind & High-Contrast Toggles */
 .color-blind-toggle,
 .contrast-toggle {
   background: none;
@@ -264,7 +305,9 @@ section {
   transition: var(--transition);
 }
 
-/* Hero Section */
+/* =====================================================
+   5. Hero Section
+===================================================== */
 .hero {
   height: 100vh;
   display: flex;
@@ -277,7 +320,7 @@ section {
   overflow: hidden;
 }
 
-/* Left column: hero text */
+/* Hero text styling */
 .hero-content {
   flex: 1;
   max-width: 600px;
@@ -289,7 +332,7 @@ section {
   justify-content: center;
 }
 
-/* Right column: 3D model container */
+/* 3D model container in hero */
 .hero-3d {
   flex: 1;
   display: flex;
@@ -298,9 +341,8 @@ section {
   max-width: 950px;
   height: 100vh;
   z-index: 2;
-  overflow: hidden; /* Contain the 3D model with no overflow */
+  overflow: hidden; /* Contain the 3D model */
 }
-
 .hero-3d spline-viewer {
   width: 100%;
   height: 100%;
@@ -324,6 +366,16 @@ section {
   opacity: 0.8;
   margin-bottom: 2.5rem;
 }
+
+/* Darken navbar background when over hero section */
+.hero-overlay {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.hero-overlay .nav-links a:hover {
+  color: #ff006f; /* Bright hover color over hero */
+}
+
+/* Call-to-action button in hero */
 .cta-button {
   display: inline-block;
   width: 11rem;
@@ -345,7 +397,7 @@ section {
   transform: translateY(-2px);
 }
 
-/* Hero BG overlay (if used) */
+/* Hero background overlay (if needed) */
 .hero-background .gradient-overlay {
   position: absolute;
   top: 0;
@@ -356,7 +408,9 @@ section {
   opacity: 0;
 }
 
-/* Fancy Slider (Course Details) */
+/* =====================================================
+   6. Fancy Slider (Course Details)
+===================================================== */
 .fancy-slider .slider-container {
   position: relative;
   overflow: hidden;
@@ -370,7 +424,7 @@ section {
   margin: 0;
   padding: 0;
   list-style: none;
-  transition: transform 0.4s ease-in-out;
+  transition: var(--transition);
 }
 .fancy-slider .slider-item {
   width: 25%;
@@ -423,7 +477,9 @@ body.dark-mode .fancy-slider .about-card {
   background: var(--primary-dark);
 }
 
-/* Instructor Section */
+/* =====================================================
+   7. Instructor Section
+===================================================== */
 .instructor-section {
   background: var(--background-alt);
   padding: 6rem 0;
@@ -463,7 +519,9 @@ body.dark-mode .fancy-slider .about-card {
   display: block;
 }
 
-/* Timeline Section */
+/* =====================================================
+   8. Timeline Section
+===================================================== */
 .timeline-section {
   padding: 6rem 0;
   background: var(--background-alt);
@@ -534,7 +592,9 @@ body.dark-mode .timeline-content {
   margin-top: 1rem;
 }
 
-/* Quiz Section */
+/* =====================================================
+   9. Quiz Section
+===================================================== */
 .quiz-section {
   padding: 6rem 0;
 }
@@ -546,7 +606,6 @@ body.dark-mode .timeline-content {
   max-width: 800px;
   margin: 3rem auto;
 }
-
 .quiz-question {
   font-size: 1.25rem;
   font-weight: 600;
@@ -607,7 +666,9 @@ body.dark-mode .timeline-content {
   margin: 1rem 0;
 }
 
-/* Contact Section */
+/* =====================================================
+   10. Contact Section
+===================================================== */
 .contact-section {
   background: var(--background-alt);
   padding: 6rem 0;
@@ -692,7 +753,9 @@ body.dark-mode .timeline-content {
   box-shadow: var(--shadow-md);
 }
 
-/* Footer */
+/* =====================================================
+   11. Footer
+===================================================== */
 .main-footer {
   color: rgb(0, 0, 0);
   padding: 3rem 0;
@@ -706,8 +769,9 @@ body.dark-mode .timeline-content {
   padding: 0 1.5rem;
   text-align: center;
 }
+/* Changed from var(--primary-light) to var(--accent-color) for better contrast */
 .footer-info h3 {
-  color: var(--primary-light);
+  color: var(--accent-color);
   margin-bottom: 0.5rem;
 }
 .footer-links {
@@ -720,10 +784,12 @@ body.dark-mode .timeline-content {
   transition: var(--transition);
 }
 .footer-links a:hover {
-  color: var(--primary-light);
+  color: var(--primary-dark);
 }
 
-/* Cookie Banner */
+/* =====================================================
+   12. Cookie Banner
+===================================================== */
 .cookie-banner {
   position: fixed;
   bottom: 0;
@@ -747,7 +813,9 @@ body.dark-mode .timeline-content {
   transition: var(--transition);
 }
 
-/* Modal */
+/* =====================================================
+   13. Modal
+===================================================== */
 .modal {
   display: none;
   position: fixed;
@@ -778,7 +846,9 @@ body.dark-mode .timeline-content {
   color: var(--text-dark);
 }
 
-/* Scroll to Top */
+/* =====================================================
+   14. Scroll to Top Button
+===================================================== */
 .scroll-top {
   position: fixed;
   bottom: 2rem;
@@ -802,23 +872,26 @@ body.dark-mode .timeline-content {
   visibility: visible;
 }
 
-/* 1) Make the footer text white in dark mode */
+/* =====================================================
+   15. Dark Mode Footer Text Adjustment
+===================================================== */
 body.dark-mode .main-footer {
   color: #fff;
 }
 
-/* 2) Responsive adjustments (tablet/mobile) */
-
+/* =====================================================
+   16. Responsive Adjustments
+===================================================== */
 /* Up to 1024px (tablets) */
 @media (max-width: 1024px) {
-  /* Instructor & Contact fix if needed */
+  /* Adjust instructor & contact layout */
   .instructor-card {
     grid-template-columns: 1fr;
   }
   .contact-container {
     grid-template-columns: 1fr;
   }
-  /* Let timeline auto-fit the width instead of 80rem */
+  /* Timeline width adjustment */
   .timeline {
     width: auto;
     margin: 3rem 1rem;
@@ -827,7 +900,7 @@ body.dark-mode .main-footer {
 
 /* Up to 768px (tablets/smaller laptops) */
 @media (max-width: 768px) {
-  /* Hide nav links behind a mobile menu */
+  /* Mobile navigation */
   .nav-links {
     display: none;
   }
@@ -846,7 +919,7 @@ body.dark-mode .main-footer {
     display: flex;
   }
 
-  /* Hero: stack columns */
+  /* Hero section stack */
   .hero {
     flex-direction: column;
     padding: 2rem 1rem;
@@ -877,7 +950,7 @@ body.dark-mode .main-footer {
     padding-top: 5rem;
   }
 
-  /* Timeline: single column */
+  /* Timeline: single column layout */
   .timeline::before {
     left: 0;
     transform: none;
@@ -895,7 +968,7 @@ body.dark-mode .main-footer {
     right: auto;
   }
 
-  /* Fancy slider: stacked slides if we want a vertical list */
+  /* Fancy slider adjustments */
   .fancy-slider .cards {
     display: block;
     width: auto;
@@ -904,7 +977,6 @@ body.dark-mode .main-footer {
     width: 100%;
     margin-bottom: 2rem;
   }
-  /* Optionally hide next/prev if single column stacking is used */
   .fancy-slider .slider-btn {
     display: none;
   }
